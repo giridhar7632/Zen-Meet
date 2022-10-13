@@ -339,7 +339,9 @@ const emailTemplate = ({ title, subject, body, link, btn, footer }) => `
 																	</td>
 																</tr>
 															</tbody>
-															<tbody>
+															${
+                                !!btn
+                                  ? `<tbody>
 																<tr>
 																	<td
 																		style="font-size: 0"
@@ -412,7 +414,9 @@ const emailTemplate = ({ title, subject, body, link, btn, footer }) => `
 																		<!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
 																	</td>
 																</tr>
-															</tbody>
+															</tbody>`
+                                  : ''
+                              }
 															<tbody>
 																<tr>
 																	<td
@@ -437,10 +441,10 @@ const emailTemplate = ({ title, subject, body, link, btn, footer }) => `
 																		valign="top"
 																	>
 																		${
-																			!footer
-																				? 'If you didn’t ask for this email, you can ignore this email.'
-																				: footer
-																		}
+                                      !footer
+                                        ? 'If you didn’t ask for this email, you can ignore this email.'
+                                        : footer
+                                    }
 																	</td>
 																</tr>
 															</tbody>
