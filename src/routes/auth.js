@@ -11,7 +11,7 @@ const {
   sendAccessToken,
   sendRefreshToken,
   createEmailVerificationToken,
-} = require('../src/utils/tokens')
+} = require('../utils/tokens')
 const {
   transporter,
   emailVerificationTemplate,
