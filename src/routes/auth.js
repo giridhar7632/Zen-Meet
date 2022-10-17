@@ -4,7 +4,7 @@ const { hash, compare } = require('bcryptjs')
 const { verify } = require('jsonwebtoken')
 
 const User = require('../models/user')
-
+const { REFRESH_TOKEN_SECRET } = require('../utils/config')
 const {
   createAccessToken,
   createRefreshToken,
@@ -121,7 +121,7 @@ router.post('/refresh_token', async (req, res) => {
 
     let id
     try {
-      id = verify(refreshtoken, process.env.REFRESH_TOKEN_SECRET).id
+      id = verify(refreshtoken, REFRESH_TOKEN_SECRET).id
     } catch (error) {
       return res.status(500).json({
         message: 'Invalid refresh token! 🤔',

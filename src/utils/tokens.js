@@ -1,15 +1,16 @@
 const { sign } = require('jsonwebtoken')
+const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = require('./config')
 
 // signing the access token
 const createAccessToken = (id) => {
-  return sign({ id }, process.env.ACCESS_TOKEN_SECRET, {
+  return sign({ id }, ACCESS_TOKEN_SECRET, {
     expiresIn: 15 * 60,
   })
 }
 
 // signing the refresh token
 const createRefreshToken = (id) => {
-  return sign({ id }, process.env.REFRESH_TOKEN_SECRET, {
+  return sign({ id }, REFRESH_TOKEN_SECRET, {
     expiresIn: '30d',
   })
 }

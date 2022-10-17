@@ -1,5 +1,6 @@
 const { verify } = require('jsonwebtoken')
 const User = require('../models/user')
+const { ACCESS_TOKEN_SECRET } = require('../utils/config')
 
 const isAuth = async (req, res, next) => {
   const authorization = req.headers['authorization']
@@ -13,7 +14,7 @@ const isAuth = async (req, res, next) => {
   const token = authorization.split(' ')[1]
   let id
   try {
-    id = verify(token, process.env.ACCESS_TOKEN_SECRET).id
+    id = verify(token, ACCESS_TOKEN_SECRET).id
   } catch {
     return res.status(500).json({
       message: 'Invalid token! 🤔',
