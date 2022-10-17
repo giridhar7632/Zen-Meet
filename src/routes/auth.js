@@ -4,6 +4,7 @@ const { hash, compare } = require('bcryptjs')
 const { verify } = require('jsonwebtoken')
 
 const User = require('../models/user')
+const logger = require('../utils/logger')
 const { REFRESH_TOKEN_SECRET } = require('../utils/config')
 const {
   createAccessToken,
@@ -43,12 +44,13 @@ router.post('/signup', async (req, res) => {
 
     const mailOptions = emailVerificationTemplate(saved, url)
     transporter.sendMail(mailOptions, (err, info) => {
-      console.log(err, info)
-      if (err)
+      if (err) {
+        logger.error(err, info)
         return res.status(500).json({
           message: 'Error sending email! 😢',
           type: 'error',
         })
+      }
 
       return res.json({
         message: 'Verify your email by clicking the link sent to your email! 📧',
@@ -56,7 +58,7 @@ router.post('/signup', async (req, res) => {
       })
     })
   } catch (error) {
-    console.log('Error: ', error)
+    logger.error(error)
     res.status(500).json({
       type: 'error',
       message: 'Error creating user!',
@@ -92,7 +94,7 @@ router.post('/login', async (req, res) => {
     sendRefreshToken(res, refreshToken)
     sendAccessToken(req, res, accessToken)
   } catch (error) {
-    console.log('Error: ', error)
+    logger.error(error)
 
     res.status(500).json({
       type: 'error',
@@ -161,7 +163,7 @@ router.post('/refresh_token', async (req, res) => {
       accessToken,
     })
   } catch (error) {
-    console.log('Error: ', error)
+    logger.error(error)
 
     res.status(500).json({
       type: 'error',
