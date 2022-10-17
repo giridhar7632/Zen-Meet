@@ -13,7 +13,7 @@ const emailTemplate = ({ title, subject, body, link, btn, footer }) => `
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="format-detection" content="telephone=no" />
 		<meta name="x-apple-disable-message-reformatting" />
-		<title>Cloutflow Account Verification Email</title>
+		<title>${title}</title>
 		<style>
 			@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;800&display=swap');
 		</style>
