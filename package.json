@@ -6,7 +6,8 @@
   "author": "Talla Giridhar <giridhar.talla2002@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^8.25.0",
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-next": "^12.3.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.1",
@@ -15,12 +16,12 @@
     "prettier-plugin-tailwindcss": "^0.1.13"
   },
   "lint-staged": {
-    "*.{js,jsx}": "eslint --cache --fix",
     "*.{js,jsx,css,md}": "npx prettier --write"
   },
   "scripts": {
     "prepare": "husky install",
     "eslint": "eslint --ext .js,.jsx,.ts,.tsx --fix .",
+    "format": "prettier --write **/**/*.{js,jsx}",
     "pre-commit": "lint-staged"
   }
 }

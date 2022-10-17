@@ -1,5 +1,5 @@
 require('dotenv').config({
-	path: '.env.local',
+  path: '.env.local',
 })
 const express = require('express')
 const cookieParser = require('cookie-parser')
@@ -20,12 +20,12 @@ app.use('/', indexRouter)
 app.use('/auth', authRouter)
 
 connect(process.env.MONGO_URI, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 })
-	.then(() => console.log('MongoDB connection is established successfully! 🎉'))
-	.catch((err) => console.log('Something went wrong: ' + err?.message))
+  .then(() => console.log('MongoDB connection is established successfully! 🎉'))
+  .catch((err) => console.log('Something went wrong: ' + err?.message))
 
 app.listen(PORT, function () {
-	console.log(`🚀 Listening on port ${PORT}`)
+  console.log(`🚀 Listening on port ${PORT}`)
 })

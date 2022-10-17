@@ -6,170 +6,169 @@ const { verify } = require('jsonwebtoken')
 const User = require('../models/user')
 
 const {
-	createAccessToken,
-	createRefreshToken,
-	sendAccessToken,
-	sendRefreshToken,
-	createEmailVerificationToken,
+  createAccessToken,
+  createRefreshToken,
+  sendAccessToken,
+  sendRefreshToken,
+  createEmailVerificationToken,
 } = require('../utils/tokens')
 const {
-	transporter,
-	emailVerificationTemplate,
-	createEmailVerificationUrl,
+  transporter,
+  emailVerificationTemplate,
+  createEmailVerificationUrl,
 } = require('../utils/email')
 
 router.post('/signup', async (req, res) => {
-	try {
-		const { name, email, password } = req.body
+  try {
+    const { name, email, password } = req.body
 
-		const user = await User.findOne({ email: email })
-		if (user)
-			return res.status(500).json({
-				message: 'User already exists! Try logging in. 😄',
-				type: 'warning',
-			})
+    const user = await User.findOne({ email: email })
+    if (user)
+      return res.status(500).json({
+        message: 'User already exists! Try logging in. 😄',
+        type: 'warning',
+      })
 
-		const passwordHash = await hash(password, 10)
-		const newUser = new User({
-			name,
-			email,
-			password: passwordHash,
-		})
+    const passwordHash = await hash(password, 10)
+    const newUser = new User({
+      name,
+      email,
+      password: passwordHash,
+    })
 
-		const saved = await newUser.save()
-		const token = createEmailVerificationToken(saved)
+    const saved = await newUser.save()
+    const token = createEmailVerificationToken(saved)
 
-		const url = createEmailVerificationUrl(saved._id, token)
+    const url = createEmailVerificationUrl(saved._id, token)
 
-		const mailOptions = emailVerificationTemplate(saved, url)
-		transporter.sendMail(mailOptions, (err, info) => {
-			console.log(err, info)
-			if (err)
-				return res.status(500).json({
-					message: 'Error sending email! 😢',
-					type: 'error',
-				})
+    const mailOptions = emailVerificationTemplate(saved, url)
+    transporter.sendMail(mailOptions, (err, info) => {
+      console.log(err, info)
+      if (err)
+        return res.status(500).json({
+          message: 'Error sending email! 😢',
+          type: 'error',
+        })
 
-			return res.json({
-				message:
-					'Verify your email by clicking the link sent to your email! 📧',
-				type: 'success',
-			})
-		})
-	} catch (error) {
-		console.log('Error: ', error)
-		res.status(500).json({
-			type: 'error',
-			message: 'Error creating user!',
-			error,
-		})
-	}
+      return res.json({
+        message: 'Verify your email by clicking the link sent to your email! 📧',
+        type: 'success',
+      })
+    })
+  } catch (error) {
+    console.log('Error: ', error)
+    res.status(500).json({
+      type: 'error',
+      message: 'Error creating user!',
+      error,
+    })
+  }
 })
 
 router.post('/login', async (req, res) => {
-	try {
-		const { email, password } = req.body
+  try {
+    const { email, password } = req.body
 
-		const user = await User.findOne({ email: email }).select('+refreshtoken')
-		if (!user)
-			return res.status(500).json({
-				message: "User doesn't exist! 😢",
-				type: 'error',
-			})
+    const user = await User.findOne({ email: email }).select('+refreshtoken')
+    if (!user)
+      return res.status(500).json({
+        message: "User doesn't exist! 😢",
+        type: 'error',
+      })
 
-		const isMatch = await compare(password, user.password)
-		if (!isMatch)
-			return res.status(500).json({
-				message: 'Password is incorrect! ⚠️',
-				type: 'error',
-			})
+    const isMatch = await compare(password, user.password)
+    if (!isMatch)
+      return res.status(500).json({
+        message: 'Password is incorrect! ⚠️',
+        type: 'error',
+      })
 
-		const accessToken = createAccessToken(user._id)
-		const refreshToken = createRefreshToken(user._id)
+    const accessToken = createAccessToken(user._id)
+    const refreshToken = createRefreshToken(user._id)
 
-		user.refreshtoken = refreshToken
-		await user.save()
+    user.refreshtoken = refreshToken
+    await user.save()
 
-		sendRefreshToken(res, refreshToken)
-		sendAccessToken(req, res, accessToken)
-	} catch (error) {
-		console.log('Error: ', error)
+    sendRefreshToken(res, refreshToken)
+    sendAccessToken(req, res, accessToken)
+  } catch (error) {
+    console.log('Error: ', error)
 
-		res.status(500).json({
-			type: 'error',
-			message: 'Error signing in!',
-			error,
-		})
-	}
+    res.status(500).json({
+      type: 'error',
+      message: 'Error signing in!',
+      error,
+    })
+  }
 })
 
 router.post('/logout', (_req, res) => {
-	res.clearCookie('refreshtoken')
-	return res.json({
-		message: 'Logged out successfully! 🤗',
-		type: 'success',
-	})
+  res.clearCookie('refreshtoken')
+  return res.json({
+    message: 'Logged out successfully! 🤗',
+    type: 'success',
+  })
 })
 
 router.post('/refresh_token', async (req, res) => {
-	try {
-		const { refreshtoken } = req.cookies
-		if (!refreshtoken)
-			return res.status(500).json({
-				message: 'No refresh token! 🤔',
-				type: 'error',
-			})
+  try {
+    const { refreshtoken } = req.cookies
+    if (!refreshtoken)
+      return res.status(500).json({
+        message: 'No refresh token! 🤔',
+        type: 'error',
+      })
 
-		let id
-		try {
-			id = verify(refreshtoken, process.env.REFRESH_TOKEN_SECRET).id
-		} catch (error) {
-			return res.status(500).json({
-				message: 'Invalid refresh token! 🤔',
-				type: 'error',
-			})
-		}
+    let id
+    try {
+      id = verify(refreshtoken, process.env.REFRESH_TOKEN_SECRET).id
+    } catch (error) {
+      return res.status(500).json({
+        message: 'Invalid refresh token! 🤔',
+        type: 'error',
+      })
+    }
 
-		if (!id)
-			return res.status(500).json({
-				message: 'Invalid refresh token! 🤔',
-				type: 'error',
-			})
+    if (!id)
+      return res.status(500).json({
+        message: 'Invalid refresh token! 🤔',
+        type: 'error',
+      })
 
-		const user = await User.findById(id)
+    const user = await User.findById(id)
 
-		if (!user)
-			return res.status(500).json({
-				message: "User doesn't exist! 😢",
-				type: 'error',
-			})
+    if (!user)
+      return res.status(500).json({
+        message: "User doesn't exist! 😢",
+        type: 'error',
+      })
 
-		if (user.refreshtoken !== refreshtoken)
-			return res.status(500).json({
-				message: 'Invalid refresh token! 🤔',
-				type: 'error',
-			})
+    if (user.refreshtoken !== refreshtoken)
+      return res.status(500).json({
+        message: 'Invalid refresh token! 🤔',
+        type: 'error',
+      })
 
-		const accessToken = createAccessToken(user._id)
-		const refreshToken = createRefreshToken(user._id)
+    const accessToken = createAccessToken(user._id)
+    const refreshToken = createRefreshToken(user._id)
 
-		user.refreshtoken = refreshToken
+    user.refreshtoken = refreshToken
 
-		sendRefreshToken(res, refreshToken)
-		return res.json({
-			message: 'Refreshed successfully! 🤗',
-			type: 'success',
-			accessToken,
-		})
-	} catch (error) {
-		console.log('Error: ', error)
+    sendRefreshToken(res, refreshToken)
+    return res.json({
+      message: 'Refreshed successfully! 🤗',
+      type: 'success',
+      accessToken,
+    })
+  } catch (error) {
+    console.log('Error: ', error)
 
-		res.status(500).json({
-			type: 'error',
-			message: 'Error refreshing token!',
-			error,
-		})
-	}
+    res.status(500).json({
+      type: 'error',
+      message: 'Error refreshing token!',
+      error,
+    })
+  }
 })
 
 module.exports = router

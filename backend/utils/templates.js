@@ -440,11 +440,7 @@ const emailTemplate = ({ title, subject, body, link, btn, footer }) => `
 																		"
 																		valign="top"
 																	>
-																		${
-                                      !footer
-                                        ? 'If you didn’t ask for this email, you can ignore this email.'
-                                        : footer
-                                    }
+																		${!footer ? 'If you didn’t ask for this email, you can ignore this email.' : footer}
 																	</td>
 																</tr>
 															</tbody>
