@@ -278,7 +278,7 @@ const emailTemplate = ({ title, subject, body, link, btn, footer }) => `
 																		style="text-align: center"
 																	>
 																		<img
-																			src="https://static.wixstatic.com/media/35564f_985212f71a7b45308kn1b99df7c03948~mv2.png/v1/fill/w_204,h_136,al_c,usm_0.66_1.00_0.01,enc_auto/35564f_985212f71a7b45308kn1b99df7c03948~mv2.png"
+																			src="https://zen-meet.vercel.app/icons/icon-152x152.png"
 																			alt="Zen Meet"
 																			style="width: 80px"
 																		/>
