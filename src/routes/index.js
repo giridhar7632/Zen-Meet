@@ -103,20 +103,20 @@ router.post('/send-password-reset-email', async (req, res) => {
 
     const mailOptions = passwordResetTemplate(user, url)
     transporter.sendMail(mailOptions, (err, info) => {
-      console.log(err, info)
-      if (err)
+      if (err) {
+        logger.error(err, info)
         return res.status(500).json({
           message: 'Error sending email! 😢',
           type: 'error',
         })
-
+      }
       return res.json({
         message: 'Password reset link has been sent to your email! 📧',
         type: 'success',
       })
     })
   } catch (error) {
-    console.log('Error: ', error)
+    logger.error(error)
     res.status(500).json({
       type: 'error',
       message: 'Error sending email!',
