@@ -1,24 +1,23 @@
 const { createTransport } = require('nodemailer')
 const { emailTemplate } = require('./templates')
+const { CLIENT_URL, EMAIL_HOST, EMAIL_USER, EMAIL_PASSWORD } = require('./config')
 
-const createPasswordResetUrl = (id, token) =>
-  `${process.env.CLIENT_URL}/reset-password/${id}/${token}`
+const createPasswordResetUrl = (id, token) => `${CLIENT_URL}/reset-password/${id}/${token}`
 
-const createEmailVerificationUrl = (id, token) =>
-  `${process.env.CLIENT_URL}/verify-email/${id}/${token}`
+const createEmailVerificationUrl = (id, token) => `${CLIENT_URL}/verify-email/${id}/${token}`
 
 const transporter = createTransport({
-  service: process.env.EMAIL_HOST,
+  service: EMAIL_HOST,
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD,
+    user: EMAIL_USER,
+    pass: EMAIL_PASSWORD,
   },
 })
 
 const passwordResetTemplate = (user, url) => {
   const { name, email } = user
   return {
-    from: `Mail - Zen Meet`,
+    from: `Zen Meet <noreply@zen-meet.vercel.app>`,
     to: email,
     subject: `Reset Password`,
     html: emailTemplate({
@@ -38,7 +37,7 @@ const passwordResetTemplate = (user, url) => {
 const emailVerificationTemplate = (user, url) => {
   const { name, email } = user
   return {
-    from: `Mail - Zen Meet`,
+    from: `Zen Meet <noreply@zen-meet.vercel.app>`,
     to: email,
     subject: `Verify your email! ${name}`,
     html: emailTemplate({
@@ -58,7 +57,7 @@ const passwordResetConfirmationTemplate = (user) => {
   const { name, email } = user
 
   return {
-    from: `Mail - Zen Meet`,
+    from: `Zen Meet <noreply@zen-meet.vercel.app>`,
     to: email,
     subject: `Password Reset Successful`,
     html: emailTemplate({
@@ -76,7 +75,7 @@ const emailVerifyConfirmationTemplate = (user) => {
   const { name, email } = user
 
   return {
-    from: `Mail - Zen Meet`,
+    from: `Zen Meet <noreply@zen-meet.vercel.app>`,
     to: email,
     subject: `Email Verification Successful`,
     html: emailTemplate({
