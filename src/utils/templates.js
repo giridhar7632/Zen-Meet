@@ -393,10 +393,10 @@ const emailTemplate = ({ title, subject, body, link, btn, footer }) => `
 																											<td
 																												style="
 																													padding: 10px 30px;
-																													background-color: #bae6fd;
+																													background-color: #e0f2fe;
 																													border-radius: 10px;
 																												"
-																												bgcolor="#bae6fd"
+																												bgcolor="#e0f2fe"
 																												valign="top"
 																												align="center"
 																											>
