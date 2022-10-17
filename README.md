@@ -39,7 +39,7 @@ The backend of the application was built using Node.js and Express for server an
 To run the backend locally follow the below commands
 
 ```sh
-cd backend && yarn install
+yarn install
 
 yarn dev
 ```
