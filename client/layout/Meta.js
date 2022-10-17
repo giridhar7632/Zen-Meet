@@ -7,7 +7,7 @@ const Meta = ({
   name = '',
   description = 'A simple video conferencing PWA with easy to use UI and fluid UX',
   image = `/og-image.png`,
-  url = '/',
+  url = process.env.NEXT_PUBLIC_URL,
   keywords = 'google meet,video chat,webrtc,virtual meet,video conferencing',
   children,
 }) => {
@@ -24,6 +24,7 @@ const Meta = ({
       <meta key="og_locale" property="og:locale" content="en_US" />
       <meta key="og_type" property="og:type" content="website" />
       <meta key="og_site" property="og:site_name" content={name} />
+      <meta key="og_url" property="og:site_url" content={url} />
 
       <title key="title">{makeTitle(title, name)}</title>
       <meta key="og_title" property="og:title" content={makeTitle(title, name)} />

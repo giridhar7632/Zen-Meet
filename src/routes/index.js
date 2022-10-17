@@ -4,7 +4,7 @@ const { verify } = require('jsonwebtoken')
 
 const User = require('../models/user')
 
-const { createPasswordResetToken } = require('../utils/tokens')
+const { createPasswordResetToken } = require('../src/utils/tokens')
 const {
   transporter,
   createPasswordResetUrl,
@@ -12,13 +12,13 @@ const {
   passwordResetConfirmationTemplate,
   emailVerifyConfirmationTemplate,
 } = require('../utils/email')
-const { protected } = require('../utils/protected')
+const { isAuth } = require('../src/utils/isAuth')
 
 router.get('/', function (_req, res) {
   res.send('Hello Express!! 👋')
 })
 
-router.get('/protected', protected, async (req, res) => {
+router.get('/protected', isAuth, async (req, res) => {
   try {
     if (req.user)
       return res.json({
