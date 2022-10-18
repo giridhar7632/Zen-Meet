@@ -31,9 +31,9 @@ const login = () => {
           backdropFilter: `blur(24px)`,
         }}
       >
-        <h1 className="mb-6 mt-3 text-center text-3xl font-medium lg:text-left">Sign In</h1>
+        <h1 className="mb-6 mt-3 text-center text-3xl font-semibold lg:text-left">Sign In</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div class="mb-3">
+          <div className="mb-3">
             <input
               type="email"
               className={`form-control block w-full border border-solid bg-white bg-clip-padding px-4 py-2 font-normal text-gray-700 ${
@@ -51,7 +51,7 @@ const login = () => {
             )}
           </div>
 
-          <div class="mb-3">
+          <div className="mb-3">
             <input
               type="password"
               className={`form-control block w-full border border-solid bg-white bg-clip-padding px-4 py-2 font-normal text-gray-700 ${
@@ -78,13 +78,13 @@ const login = () => {
             </a>
           </div>
 
-          <div class="text-center lg:text-left">
+          <div className="text-center lg:text-left">
             <Button type="submit"> Sign In</Button>
-            <p class="mt-2 mb-0 pt-1 text-sm">
+            <p className="mt-2 mb-0 pt-1 text-sm">
               Don't have an account?
               <a
                 href="/signup"
-                class="ml-1 font-medium text-sky-600 transition duration-200 ease-in-out hover:text-sky-700 focus:text-sky-700"
+                className="ml-1 font-medium text-sky-600 transition duration-200 ease-in-out hover:text-sky-700 focus:text-sky-700"
               >
                 Sign Up
               </a>

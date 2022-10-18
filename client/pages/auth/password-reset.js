@@ -98,13 +98,13 @@ const PasswordReset = () => {
             </div>
           ) : null}
 
-          <div class="text-center lg:text-left">
+          <div className="text-center lg:text-left">
             <Button type="submit">{queryParams?.email ? 'Change Password' : 'Get Link'}</Button>
-            <p class="mt-2 mb-0 pt-1 text-sm">
+            <p className="mt-2 mb-0 pt-1 text-sm">
               Don't have an account?
               <a
                 href="/signup"
-                class="ml-1 font-medium text-sky-600 transition duration-200 ease-in-out hover:text-sky-700 focus:text-sky-700"
+                className="ml-1 font-medium text-sky-600 transition duration-200 ease-in-out hover:text-sky-700 focus:text-sky-700"
               >
                 Sign Up
               </a>
