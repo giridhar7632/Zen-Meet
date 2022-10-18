@@ -34,7 +34,7 @@ const signup = () => {
       >
         <h1 className="mb-6 mt-3 text-center text-3xl font-medium lg:text-left">Sign Up</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div class="mb-3">
+          <div className="mb-3">
             <input
               type="text"
               className={`form-control block w-full border border-solid bg-white bg-clip-padding px-4 py-2 font-normal text-gray-700 ${
@@ -55,7 +55,7 @@ const signup = () => {
             )}
           </div>
 
-          <div class="mb-3">
+          <div className="mb-3">
             <input
               type="text"
               className={`form-control block w-full border border-solid bg-white bg-clip-padding px-4 py-2 font-normal text-gray-700 ${
@@ -77,7 +77,7 @@ const signup = () => {
             )}
           </div>
 
-          <div class="mb-3">
+          <div className="mb-3">
             <input
               type="password"
               className={`form-control block w-full border border-solid bg-white bg-clip-padding px-4 py-2 font-normal text-gray-700 ${
@@ -103,16 +103,16 @@ const signup = () => {
             )}
           </div>
 
-          <div class="text-center lg:text-left">
+          <div className="text-center lg:text-left">
             <Button type="submit" loadingText={'Signing up'}>
               {' '}
               Sign Up
             </Button>
-            <p class="mt-2 mb-0 pt-1 text-sm">
+            <p className="mt-2 mb-0 pt-1 text-sm">
               Already have an account?
               <a
                 href="/signin"
-                class="ml-1 font-medium text-sky-600 transition duration-200 ease-in-out hover:text-sky-700 focus:text-sky-700"
+                className="ml-1 font-medium text-sky-600 transition duration-200 ease-in-out hover:text-sky-700 focus:text-sky-700"
               >
                 Sign In
               </a>
