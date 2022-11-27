@@ -28,12 +28,12 @@
     "express": "^4.18.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.5.4",
+    "node-fetch": "^3.3.0",
     "nodemailer": "^6.7.8",
     "socket.io": "^4.5.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.19",
     "concurrently": "^7.4.0",
     "eslint": "^7.32.0 || ^8.2.0",
     "eslint-config-next": "^12.3.1",
@@ -41,6 +41,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
+    "nodemon": "^2.0.19",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13"
   },

@@ -1,8 +1,8 @@
-const app = require('./src/app')
+const server = require('./src/server')
 const logger = require('./src/utils/logger')
 const { PORT } = require('./src/utils/config')
 
-app.listen(PORT, (err) => {
+server.listen(PORT, (err) => {
   if (err) {
     logger.error(err?.message)
   }
