@@ -21,4 +21,6 @@ module.exports = {
   ACCESS_TOKEN_LIFE: process.env.ACCESS_TOKEN_LIFE,
   REFRESH_TOKEN_LIFE: process.env.REFRESH_TOKEN_LIFE,
   ENV: process.env.NODE_ENV,
+  TRANSCRIPT_APP_ID: process.env.TRANSCRIPT_APP_ID,
+  TRANSCRIPT_APP_SCERET: process.env.TRANSCRIPT_APP_SCERET,
 }
