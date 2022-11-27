@@ -8,6 +8,7 @@
     "eslint": "eslint --ext .js,.jsx,.ts,.tsx --fix ."
   },
   "dependencies": {
+    "clsx": "^1.2.1",
     "next": "latest",
     "next-pwa": "5.5.4",
     "react": "^18.2.0",
