@@ -59,7 +59,7 @@ router.post('/signup', async (req, res) => {
     })
   } catch (error) {
     logger.error(error)
-    res.status(500).json({
+    return res.status(500).json({
       type: 'error',
       message: 'Error creating user!',
       error,
@@ -96,7 +96,7 @@ router.post('/login', async (req, res) => {
   } catch (error) {
     logger.error(error)
 
-    res.status(500).json({
+    return res.status(500).json({
       type: 'error',
       message: 'Error signing in!',
       error,
@@ -165,7 +165,7 @@ router.post('/refresh_token', async (req, res) => {
   } catch (error) {
     logger.error(error)
 
-    res.status(500).json({
+    return res.status(500).json({
       type: 'error',
       message: 'Error refreshing token!',
       error,

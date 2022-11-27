@@ -13,9 +13,10 @@ const {
   emailVerifyConfirmationTemplate,
 } = require('../utils/email')
 const { isAuth } = require('../utils/isAuth')
+const logger = require('../utils/logger')
 
 router.get('/', function (_req, res) {
-  res.send('Hello Express!! 👋')
+  res.send('Live!! 👌')
 })
 
 router.get('/protected', isAuth, async (req, res) => {
@@ -32,7 +33,8 @@ router.get('/protected', isAuth, async (req, res) => {
       type: 'error',
     })
   } catch (error) {
-    res.status(500).json({
+    logger.error(error)
+    return res.status(500).json({
       type: 'error',
       message: 'Error getting protected route!',
       error,
@@ -78,7 +80,8 @@ router.post('/verify-email/:id/:token', async (req, res) => {
       })
     })
   } catch (error) {
-    res.status(500).json({
+    logger.error(error)
+    return res.status(500).json({
       type: 'error',
       message: 'Error sending email!',
       error,
@@ -117,7 +120,7 @@ router.post('/send-password-reset-email', async (req, res) => {
     })
   } catch (error) {
     logger.error(error)
-    res.status(500).json({
+    return res.status(500).json({
       type: 'error',
       message: 'Error sending email!',
       error,
@@ -164,7 +167,8 @@ router.post('/reset-password/:id/:token', async (req, res) => {
       })
     })
   } catch (error) {
-    res.status(500).json({
+    logger.error(error)
+    return res.status(500).json({
       type: 'error',
       message: 'Error sending email!',
       error,
