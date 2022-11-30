@@ -1,7 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import Button from '../../components/Button'
-import Meta from '../../layout/Meta'
+import Button from '../../components/commom/Button'
+import Meta from '../../components/layout/Meta'
 
 const signup = () => {
   const {

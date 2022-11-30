@@ -2,12 +2,15 @@ import Head from 'next/head'
 
 const makeTitle = (title, name) => (title === name || !name ? title : `${title} | ${name}`)
 
+const baseUrl =
+  process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://zen-meet.vercel.app'
+
 const Meta = ({
   title = 'Zen Meet',
   name = '',
   description = 'A simple video conferencing PWA with easy to use UI and fluid UX',
   image = `/og-image.png`,
-  url = process.env.NEXT_PUBLIC_URL,
+  url = baseUrl,
   keywords = 'google meet,video chat,webrtc,virtual meet,video conferencing',
   children,
 }) => {

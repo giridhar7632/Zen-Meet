@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form'
-import Button from '../../components/Button'
-import Meta from '../../layout/Meta'
+import Button from '../../components/common/Button'
+import Meta from '../../components/layout/Meta'
+import useToast from '../../lib/hooks/toast'
 
 const login = () => {
   const {
@@ -14,7 +15,7 @@ const login = () => {
       password: '',
     },
   })
-
+  const toast = useToast()
   const onSubmit = (data) => console.log(data)
 
   return (
@@ -79,7 +80,14 @@ const login = () => {
           </div>
 
           <div className="text-center lg:text-left">
-            <Button type="submit"> Sign In</Button>
+            <Button
+              onClick={() => {
+                toast('success', 'hello')
+              }}
+            >
+              {' '}
+              Sign In
+            </Button>
             <p className="mt-2 mb-0 pt-1 text-sm">
               Don't have an account?
               <a
