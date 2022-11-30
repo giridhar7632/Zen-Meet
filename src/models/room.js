@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose')
+const { ObjectId } = Schema.Types
 const { info } = require('../utils/logger')
-
 const roomSchema = new Schema({
   roomId: { type: String, unique: true },
   roomName: { type: String, default: 'Untitled' },

@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import Button from '../../components/Button'
-import Meta from '../../layout/Meta'
+import Meta from '../../components/layout/Meta'
 
 const PasswordReset = () => {
   const { query: queryParams } = useRouter()
