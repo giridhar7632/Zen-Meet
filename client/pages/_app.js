@@ -1,14 +1,8 @@
-import Meta from '../components/layout/Meta'
-import ToastContainer from '../components/common/ToastContainer'
-import { ToastProvider } from '../lib/context/ToastContext'
+import { AuthProvider } from '../utils/useAuth'
 import '../styles/globals.css'
 
 export default function MyApp({ Component, pageProps }) {
-  return (
-    <ToastProvider>
-      <Meta />
-      <Component {...pageProps} />
-      <ToastContainer />
-    </ToastProvider>
-  )
+  const getLayout = Component.getLayout ?? ((page) => page)
+
+  return <AuthProvider>{getLayout(<Component {...pageProps} />)}</AuthProvider>
 }
