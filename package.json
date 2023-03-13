@@ -1,6 +1,6 @@
 {
   "name": "zen-meet",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A simple video conferencing progressive web app with easy to use UI and fluid UX",
   "main": "index.js",
   "repository": "https://github.com/giridhar7632/Zen-Meet.git",
@@ -18,7 +18,7 @@
     "webrtc",
     "socket",
     "realtime",
-    "video",
+    "video-call",
     "chat"
   ],
   "dependencies": {
