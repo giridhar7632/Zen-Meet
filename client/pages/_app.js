@@ -1,14 +1,22 @@
-import Meta from '../components/layout/Meta'
-import ToastContainer from '../components/common/ToastContainer'
-import { ToastProvider } from '../lib/context/ToastContext'
-import '../styles/globals.css'
+import Protected from '@/components/Protected'
+import { AuthProvider } from '@/context/useAuth'
+// import { titleCase } from '@/utils/titleCase'
+// import Layout from '@/components/layout'
+// import { useRouter } from 'next/router'
+import '@/styles/globals.css'
 
 export default function MyApp({ Component, pageProps }) {
+  const protectedRoutes = ['/']
+  // const router = useRouter()
+  // const name = titleCase(router.pathname.slice(1))
+
   return (
-    <ToastProvider>
-      <Meta />
-      <Component {...pageProps} />
-      <ToastContainer />
-    </ToastProvider>
+    <AuthProvider>
+      {/* <Layout meta={name && { name }}> */}
+      <Protected protectedRoutes={protectedRoutes}>
+        <Component {...pageProps} />
+      </Protected>
+      {/* </Layout> */}
+    </AuthProvider>
   )
 }
