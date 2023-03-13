@@ -19,7 +19,7 @@ const {
   createEmailVerificationUrl,
 } = require('../utils/email')
 
-router.post('/signup', async (req, res) => {
+router.post('/register', async (req, res) => {
   try {
     const { name, email, password } = req.body
 

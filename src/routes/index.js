@@ -14,8 +14,10 @@ const {
 } = require('../utils/email')
 const { isAuth } = require('../utils/isAuth')
 const logger = require('../utils/logger')
+const { hash } = require('bcryptjs')
+const { SALT_WORK_FACTOR } = require('../utils/config')
 
-router.get('/', function (_req, res) {
+router.get('/status', function (_req, res) {
   res.send('Live!! 👌')
 })
 
@@ -149,8 +151,7 @@ router.post('/reset-password/:id/:token', async (req, res) => {
         type: 'error',
       })
 
-    user.password = newPassword
-
+    user.password = await hash(newPassword, SALT_WORK_FACTOR)
     await user.save()
 
     const mailOptions = passwordResetConfirmationTemplate(user)
@@ -162,7 +163,7 @@ router.post('/reset-password/:id/:token', async (req, res) => {
         })
 
       return res.json({
-        message: 'Email sent! 📧',
+        message: 'Password reset successful! 📧',
         type: 'success',
       })
     })
