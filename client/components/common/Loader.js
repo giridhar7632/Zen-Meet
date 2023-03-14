@@ -1,12 +1,13 @@
 import React from 'react'
 
-const Loader = () => {
+const Loader = ({ size }) => {
   return (
-    <div role="status">
+    <div className="mx-auto my-12 w-full">
       <svg
         aria-hidden="true"
-        className="mr-2 inline h-10 w-10 animate-spin fill-sky-600 text-gray-200 dark:text-gray-600"
+        className="mx-auto h-12 w-12 animate-spin fill-sky-600 text-gray-200 dark:text-gray-600"
         viewBox="0 0 100 101"
+        style={{ height: size, width: size }}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >

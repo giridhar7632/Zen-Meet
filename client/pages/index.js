@@ -1,17 +1,11 @@
 import Button from '@/components/common/Button'
-import Footer from '@/components/layout/Footer'
-import Meta from '@/components/layout/Meta'
 import Link from 'next/link'
 
 export default function Index() {
   return (
-    <div
-      className={
-        "max-w-screen relative flex min-h-screen min-w-full flex-col bg-[url('/background.png')] bg-cover bg-clip-border bg-left-bottom bg-no-repeat"
-      }
-    >
-      <Meta />
-      <nav className="absolute z-10 flex w-full items-center justify-between p-4">
+    <div className={'max-w-screen relative my-auto flex min-w-full flex-col'}>
+      {/* <Meta /> */}
+      {/* <nav className="absolute z-10 flex w-full items-center justify-between p-4">
         <Link className="text-lg" href={'/'}>
           MeetMate
         </Link>
@@ -30,11 +24,13 @@ export default function Index() {
             <Button>Sign up</Button>
           </Link>
         </div>
-      </nav>
-      <div className="flex w-full flex-1 flex-col items-center bg-white bg-opacity-90 px-4 backdrop-blur-sm md:max-w-2xl md:px-0 lg:max-w-3xl">
+      </nav> */}
+      <div className="flex w-full flex-1 flex-col items-center rounded-lg bg-white bg-opacity-90 p-12 shadow-sm backdrop-blur-sm md:max-w-2xl md:px-0 lg:max-w-3xl">
         <div className="flex flex-1 flex-col justify-center">
-          <h1 className="max-w-lg text-xl font-semibold md:text-3xl">
-            A place to easily sell and buy used goods within the NIT campus.
+          <h1 className="max-w-lg text-xl font-semibold md:text-2xl">
+            A powerful video conferencing app that allows you to connect with colleagues, friends,
+            and family from anywhere in the world. With advanced features such as screen sharing and
+            chat, MeetMate makes remote collaboration easy and productive.
           </h1>
           <div className="my-8">
             <Link href={'/register'}>
@@ -42,9 +38,9 @@ export default function Index() {
             </Link>
           </div>
         </div>
-        <div className="w-full">
+        {/* <div className="w-full">
           <Footer />
-        </div>
+        </div> */}
       </div>
     </div>
   )

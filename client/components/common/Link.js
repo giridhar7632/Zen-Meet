@@ -3,7 +3,7 @@ import NextLink from 'next/link'
 
 const Link = ({ children, className = '', ...props }) => {
   return (
-    <NextLink {...props} className={clsx('px-2 text-sky-600 hover:underline', className)}>
+    <NextLink {...props} className={clsx(className, 'text-sky-600 hover:underline')}>
       {children}
     </NextLink>
   )
