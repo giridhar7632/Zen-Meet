@@ -17,7 +17,7 @@ module.exports = {
   EMAIL_HOST: process.env.EMAIL_HOST,
   EMAIL_USER: process.env.EMAIL_USER,
   EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
-  SALT_WORK_FACTOR: process.env.SALT_WORK_FACTOR,
+  SALT_WORK_FACTOR: parseInt(process.env.SALT_WORK_FACTOR),
   ACCESS_TOKEN_LIFE: process.env.ACCESS_TOKEN_LIFE,
   REFRESH_TOKEN_LIFE: process.env.REFRESH_TOKEN_LIFE,
   ENV: process.env.NODE_ENV,

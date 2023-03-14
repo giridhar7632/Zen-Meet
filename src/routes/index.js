@@ -44,10 +44,10 @@ router.get('/protected', isAuth, async (req, res) => {
   }
 })
 
-router.post('/verify-email/:id/:token', async (req, res) => {
+router.get('/verify-email/:id/:token', async (req, res) => {
   try {
     const { id, token } = req.params
-
+    console.log({ id, token })
     const user = await User.findById(id)
 
     if (!user)
@@ -64,20 +64,28 @@ router.post('/verify-email/:id/:token', async (req, res) => {
         type: 'error',
       })
 
+    if (user.verified) {
+      return res.json({
+        message: '😀 Email was already verified!',
+        type: 'success',
+      })
+    }
     user.verified = true
 
     await user.save()
 
     const mailOptions = emailVerifyConfirmationTemplate(user)
     transporter.sendMail(mailOptions, (err, info) => {
-      if (err)
-        return res.status(500).json({
-          message: 'Error sending email! 😢',
-          type: 'error',
-        })
+      if (err) {
+        logger.info({ err, info })
+      }
+      // return res.status(500).json({
+      //   message: 'Error sending email! 😢',
+      //   type: 'error',
+      // })
 
       return res.json({
-        message: 'Email verification success! 📧',
+        message: '🎊 Email verification success!',
         type: 'success',
       })
     })
@@ -85,7 +93,7 @@ router.post('/verify-email/:id/:token', async (req, res) => {
     logger.error(error)
     return res.status(500).json({
       type: 'error',
-      message: 'Error sending email!',
+      message: 'Something went wrong! 😕',
       error,
     })
   }
@@ -163,7 +171,7 @@ router.post('/reset-password/:id/:token', async (req, res) => {
         })
 
       return res.json({
-        message: 'Password reset successful! 📧',
+        message: '🎊 Password reset successful!',
         type: 'success',
       })
     })
@@ -171,7 +179,7 @@ router.post('/reset-password/:id/:token', async (req, res) => {
     logger.error(error)
     return res.status(500).json({
       type: 'error',
-      message: 'Error sending email!',
+      message: 'Something went wrong! 😕',
       error,
     })
   }

@@ -2,9 +2,9 @@ const { createTransport } = require('nodemailer')
 const { emailTemplate } = require('./templates')
 const { CLIENT_URL, EMAIL_HOST, EMAIL_USER, EMAIL_PASSWORD } = require('./config')
 
-const createPasswordResetUrl = (id, token) => `${CLIENT_URL}/reset-password/${id}/${token}`
+const createPasswordResetUrl = (id, token) => `${CLIENT_URL}/reset-password/${id}?token=${token}`
 
-const createEmailVerificationUrl = (id, token) => `${CLIENT_URL}/verify-email/${id}/${token}`
+const createEmailVerificationUrl = (id, token) => `${CLIENT_URL}/verify-email/${id}?token=${token}`
 
 const transporter = createTransport({
   service: EMAIL_HOST,

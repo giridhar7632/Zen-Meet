@@ -11,8 +11,21 @@ const { requestLogger } = require('./utils/middleware')
 
 const app = express()
 
-app.use((_req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*')
+app.use((req, res, next) => {
+  const allowedOrigins = [
+    'http://127.0.0.1:3000',
+    'http://localhost:3000',
+    'http://localhost:5000',
+    'http://127.0.0.1:5000',
+    'http://localhost:8080',
+    'https://zen-meet.vercel.app',
+  ]
+  const origin = req.headers.origin
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin)
+  }
+  // res.setHeader('Access-Control-Allow-Origin', req.headers.origin)
+  res.setHeader('Access-Control-Allow-Credentials', true)
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PUT, PATCH, DELETE')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
   next()
@@ -22,9 +35,9 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(requestLogger)
 
-app.use('/', indexRouter)
-app.use('/auth', authRouter)
-app.use('/chats', chatsRouter)
+app.use('/api', indexRouter)
+app.use('/api/auth', authRouter)
+app.use('/api/chats', chatsRouter)
 
 connect(URI, {
   useNewUrlParser: true,
