@@ -123,17 +123,17 @@ router.post('/refresh_token', async (req, res) => {
 
     let id
     try {
-      id = verify(refreshtoken, REFRESH_TOKEN_SECRET).id
+      id = await verify(refreshtoken, REFRESH_TOKEN_SECRET).id
     } catch (error) {
       return res.status(500).json({
-        message: 'Invalid refresh token! 🤔',
+        message: 'Incorrect token! 🤔',
         type: 'error',
       })
     }
 
     if (!id)
       return res.status(500).json({
-        message: 'Invalid refresh token! 🤔',
+        message: 'False token! 🤔',
         type: 'error',
       })
 
@@ -156,11 +156,13 @@ router.post('/refresh_token', async (req, res) => {
 
     user.refreshtoken = refreshToken
 
+    await user.save()
+
     sendRefreshToken(res, refreshToken)
     return res.json({
       message: 'Refreshed successfully! 🤗',
       type: 'success',
-      accessToken,
+      accesstoken: accessToken,
     })
   } catch (error) {
     logger.error(error)

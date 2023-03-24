@@ -21,9 +21,9 @@ app.use((req, res, next) => {
     'https://zen-meet.vercel.app',
   ]
   const origin = req.headers.origin
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin)
-  }
+  // if (allowedOrigins.includes(origin)) {
+  res.setHeader('Access-Control-Allow-Origin', origin)
+  // }
   // res.setHeader('Access-Control-Allow-Origin', req.headers.origin)
   res.setHeader('Access-Control-Allow-Credentials', true)
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PUT, PATCH, DELETE')
