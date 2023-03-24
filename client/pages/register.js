@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import Button from '@/components/common/Button'
@@ -47,7 +47,7 @@ const Register = () => {
           register={register('name', {
             required: `Username is required!`,
           })}
-          error={errors?.password}
+          error={errors?.name}
         />
         <Input
           label={'Email'}
