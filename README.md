@@ -1,4 +1,4 @@
-## Zen Meet ✨
+## MeetMate ✨
 
 💻 A simple video conferencing progressive web app with easy to use user UI and fluid user experience.
 
