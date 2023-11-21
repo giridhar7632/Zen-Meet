@@ -20,7 +20,7 @@ export function generateUEID() {
 // defining the Context provider
 export const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([])
-  const [loaded, setLoaded] = useState(false)
+  // const [loaded, setLoaded] = useState(false)
   const open = ({ type, message }) => {
     console.log({ type, message })
     setToasts((prevToasts) => [...prevToasts, { id: generateUEID(), type, message }])
@@ -28,28 +28,28 @@ export const ToastProvider = ({ children }) => {
   const close = (id) => setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== id))
   const contextValue = useMemo(() => ({ open }), [])
 
-  useEffect(() => {
-    setLoaded(true)
-  }, [])
+  // useEffect(() => {
+  //   setLoaded(true)
+  // }, [])
 
   return (
     <ToastContext.Provider value={contextValue}>
-      {loaded
-        ? createPortal(
-            <div className="fixed bottom-0 right-0 z-30 w-full">
-              {toasts.map((toast) => (
-                <Toast
-                  key={toast.id}
-                  type={toast.type}
-                  message={toast.message}
-                  close={() => close(toast.id)}
-                />
-              ))}
-            </div>,
-            document.body
-          )
-        : null}
       {children}
+      {/* {loaded
+        ? createPortal( */}
+      <div className="absolute bottom-0 right-0 z-50 w-full">
+        {toasts.map((toast) => (
+          <Toast
+            key={toast.id}
+            type={toast.type}
+            message={toast.message}
+            close={() => close(toast.id)}
+          />
+        ))}
+      </div>
+      {/* document.body
+          )
+        : null} */}
     </ToastContext.Provider>
   )
 }

@@ -6,6 +6,7 @@ import Input from '@/components/common/Input'
 import Link from '@/components/common/Link'
 import { useAuth } from '@/context/useAuth'
 import { useRouter } from 'next/router'
+import useToast from '@/context/useToast'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -30,9 +31,10 @@ const Login = () => {
     )
     return () => subscription.unsubscribe()
   }, [watch])
-
+  const toast = useToast()
   const onFormSubmit = handleSubmit(async (data) => {
-    await login(data)
+    // await login(data)
+    toast.open({ message: 'Login successful!', type: 'success' })
   })
 
   return (
@@ -60,7 +62,6 @@ const Login = () => {
               message: 'Invalid email address!',
             },
           })}
-          onFocusExit
           error={errors?.email}
         />
         <Input

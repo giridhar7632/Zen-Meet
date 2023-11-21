@@ -4,7 +4,10 @@ import Navbar from './Navbar'
 
 const Layout = ({ meta, children, ...props }) => {
   return (
-    <div className="max-w-screen flex min-h-screen bg-[url('/bg.png')] bg-cover bg-center bg-no-repeat">
+    <div
+      id={'main'}
+      className="max-w-screen flex min-h-screen bg-[url('/bg.png')] bg-cover bg-center bg-no-repeat"
+    >
       <Meta {...meta} />
       <div className="mx-auto flex w-[100%] max-w-screen-xl flex-col">
         <Navbar />

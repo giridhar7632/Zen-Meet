@@ -21,7 +21,7 @@ const {
 
 router.post('/register', async (req, res) => {
   try {
-    const { name, email, password } = req.body
+    const { name, email, password, rooms } = req.body
 
     const user = await User.findOne({ email: email })
     if (user)
@@ -35,6 +35,7 @@ router.post('/register', async (req, res) => {
       name,
       email,
       password: passwordHash,
+      rooms: rooms || [],
     })
 
     const saved = await newUser.save()
@@ -69,7 +70,7 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   try {
-    const { email, password } = req.body
+    const { email, password, rooms } = req.body
 
     const user = await User.findOne({ email: email }).select('+refreshtoken')
     if (!user)
@@ -84,7 +85,19 @@ router.post('/login', async (req, res) => {
         message: 'Password is incorrect! ⚠️',
         type: 'error',
       })
-
+    if (rooms) {
+      await User.findOneAndUpdate(
+        { email: email },
+        {
+          $push: {
+            rooms: rooms,
+          },
+        },
+        {
+          new: true,
+        }
+      )
+    }
     const accessToken = createAccessToken(user._id)
     const refreshToken = createRefreshToken(user._id)
 
@@ -92,7 +105,7 @@ router.post('/login', async (req, res) => {
     await user.save()
 
     sendRefreshToken(res, refreshToken)
-    sendAccessToken(req, res, accessToken)
+    sendAccessToken(req, res, accessToken, user)
   } catch (error) {
     logger.error(error)
 
@@ -163,6 +176,7 @@ router.post('/refresh_token', async (req, res) => {
       message: 'Refreshed successfully! 🤗',
       type: 'success',
       accesstoken: accessToken,
+      user,
     })
   } catch (error) {
     logger.error(error)

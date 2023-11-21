@@ -11,7 +11,20 @@ export const AuthContext = createContext({})
 
 // defining the Context provider
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState({}) // state for tracking user
+  const [user, setUser] = useState({
+    userId: null,
+    name: '',
+    email: '',
+    mic: false,
+    camera: false,
+    stream: null,
+    videoDevices: [],
+    audioDevices: [],
+    auth: false,
+    socket: null,
+    joiningRoom: null,
+    joiningPath: null,
+  }) // state for tracking user
   const [isAuth, setIsAuth] = useState('') // state for tracking jwt token
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
@@ -29,13 +42,13 @@ export const AuthProvider = ({ children }) => {
       })
       console.log(res)
       setIsAuth(res.accesstoken)
-      setUser(res.user)
-      toast.open(res)
+      setUser((prev) => ({ ...prev, ...res.user }))
+      // toast.open(res)
     } catch (error) {
       console.log(error)
-      error?.message
-        ? toast.open({ message: error.message, type: 'error' })
-        : toast.open({ message: 'Something went wrong! 😕', type: 'error' })
+      // error?.message
+      //   ? toast.open({ message: error.message, type: 'error' })
+      //   : toast.open({ message: 'Something went wrong! 😕', type: 'error' })
     }
     setIsLoading(false)
   }
@@ -45,8 +58,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await fetcher('/api/auth/register', { body })
       toast.open(res)
-      console.log(res)
-      // router.push('/login')
+      router.push('/login')
     } catch (error) {
       error?.message
         ? toast.open({ message: error.message, type: 'error' })
@@ -60,7 +72,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await fetcher('/api/auth/login', { body })
       setIsAuth(res.accesstoken)
-      setUser(res.user)
+      setUser((prev) => ({ ...prev, ...res.user }))
       toast.open(res)
       router.push('/')
     } catch (error) {
@@ -86,20 +98,20 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(false)
   }
 
-  // setIsLoading(true)
-  // setIsLoading(false)
   async function verifyEmail({ id, token }) {
+    // setIsLoading(true)
     try {
       const res = await fetcher(`/api/verify-email/${id}/${token}`)
-      return res.message
       toast.open(res)
+      return res.message
     } catch (error) {
-      return error?.message ? error.message : 'Something went wrong! 😕'
       error?.message
         ? toast.open({ message: error.message, type: 'error' })
         : toast.open({ message: 'Something went wrong! 😕', type: 'error' })
+      return error?.message ? error.message : 'Something went wrong! 😕'
     }
   }
+  // setIsLoading(false)
 
   async function sendPasswordResetEmail(body) {
     setIsLoading(true)
@@ -114,6 +126,7 @@ export const AuthProvider = ({ children }) => {
     }
     setIsLoading(false)
   }
+
   async function resetPassword({ id, token }, body) {
     setIsLoading(true)
     try {
@@ -133,6 +146,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         isAuth,
         user,
+        setUser,
         register,
         login,
         logout,
