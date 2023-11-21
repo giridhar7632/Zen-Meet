@@ -33,7 +33,7 @@ const Login = () => {
   }, [watch])
   const toast = useToast()
   const onFormSubmit = handleSubmit(async (data) => {
-    // await login(data)
+    await login(data)
     toast.open({ message: 'Login successful!', type: 'success' })
   })
 

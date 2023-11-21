@@ -1,6 +1,6 @@
-require('dotenv').config()
+require('dotenv').config({ path: '.env.local' })
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 8080
 
 const URI = process.env.NODE_ENV === 'test' ? process.env.TEST_MONGO_URI : process.env.MONGO_URI
 const CLIENT_URL =
